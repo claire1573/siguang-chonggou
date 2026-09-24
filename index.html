@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="HXcdzxPoJ5XIA97ls634sz">
+<head data-page-node-id="7LVCUIkFEaRMrTQMy7RXrx">
+<meta charset="UTF-8" data-page-node-id="LFLsSrFXxNeyRBUBWyVuTR">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="JcxAb4RaiQIKoEXxxS5pF7">
+<title>食光重构 · 中年个性化减肥食谱推荐</title>
+<style>
+  :root{
+    --bg:#f5f3ec; --card:#ffffff; --ink:#292824; --ink-soft:#5f5c54;
+    --green:#2f6b4f; --green-2:#3a8a63; --gold:#c98a3d; --red:#b64a3f;
+    --line:#e6e1d5; --chip:#f0ede3; --radius:16px;
+    --shadow:0 4px 24px rgba(60,50,30,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.75;font-size:15px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+
+  /* 顶部 */
+  .hero{
+    background:linear-gradient(135deg,#274d3b 0%,#2f6b4f 55%,#3a8a63 100%);
+    color:#fff;padding:56px 20px 48px;margin-bottom:28px;
+  }
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+    padding:4px 14px;border-radius:20px;font-size:12px;letter-spacing:2px;margin-bottom:16px}
+  .hero h1{font-size:30px;font-weight:800;line-height:1.3;margin-bottom:10px}
+  .hero p{opacity:.9;max-width:660px;font-size:14.5px}
+
+  /* 主导航 tab */
+  .tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+  .tab{
+    flex:1;min-width:140px;text-align:center;padding:13px 12px;border-radius:12px;
+    background:var(--card);border:1.5px solid var(--line);cursor:pointer;
+    font-weight:700;font-size:14px;color:var(--ink-soft);transition:.2s;box-shadow:var(--shadow);
+  }
+  .tab:hover{border-color:var(--green-2)}
+  .tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+  .panel{display:none}
+  .panel.active{display:block}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:32px 36px;margin-bottom:22px}
+  .card h2{font-size:22px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  .card h2 .no{display:inline-flex;width:32px;height:32px;border-radius:9px;background:var(--green);
+    color:#fff;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0}
+  .card h3{font-size:16.5px;font-weight:700;margin:22px 0 8px}
+  .card .sub{color:var(--ink-soft);font-size:14px;margin-bottom:14px}
+  .lead{font-size:15.5px;margin-bottom:14px}
+
+  /* 表单 */
+  .field{margin-bottom:16px;padding:14px 16px;background:#faf9f5;border:1px solid var(--line);border-radius:12px}
+  .field .q{font-weight:700;margin-bottom:8px;font-size:14.5px}
+  .field .q .hint{display:block;font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-top:2px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{
+    padding:8px 14px;border-radius:20px;border:1.5px solid var(--line);cursor:pointer;
+    font-size:13.5px;background:#fff;transition:.15s;user-select:none;
+  }
+  .opt:hover{border-color:var(--green-2)}
+  .opt.sel{background:var(--green);color:#fff;border-color:var(--green);font-weight:600}
+  input[type=number],input[type=text]{
+    padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;width:160px;
+  }
+  input:focus{outline:none;border-color:var(--green-2)}
+  .row{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+
+  .section-title{font-size:19px;font-weight:800;color:var(--green);margin:28px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--chip)}
+
+  .btn{
+    display:inline-block;background:var(--green);color:#fff;border:none;padding:14px 30px;
+    border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;transition:.2s;letter-spacing:1px;
+  }
+  .btn:hover{background:var(--green-2);transform:translateY(-1px)}
+  .btn.ghost{background:#fff;color:var(--green);border:2px solid var(--green)}
+  .btn.ghost:hover{background:#f0f7f2}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+  .cta{text-align:center;margin:10px 0 4px}
+
+  /* 结果 */
+  .result-hero{background:linear-gradient(135deg,#f4efe2,#e9f2ea);border:1px solid #e2dbc8;border-radius:14px;padding:24px;margin-bottom:18px}
+  .result-hero .big{font-size:34px;font-weight:900;color:var(--green)}
+  .result-hero .big span{font-size:15px;font-weight:600;color:var(--ink-soft)}
+  .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+  @media(max-width:640px){.metric-grid{grid-template-columns:repeat(2,1fr)}}
+  .metric{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .metric .v{font-size:22px;font-weight:800;color:var(--ink)}
+  .metric .v small{font-size:12px;font-weight:600;color:var(--ink-soft)}
+  .metric .l{font-size:12px;color:var(--ink-soft);margin-top:2px}
+
+  .bar-wrap{background:#eeeae0;border-radius:8px;height:20px;overflow:hidden;margin:6px 0}
+  .bar{height:100%;border-radius:8px;transition:width .8s ease}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--chip);font-weight:700}
+  tr:nth-child(even) td{background:#faf9f5}
+
+  .meal{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:10px 0;background:#fff}
+  .meal .tag{font-weight:800;color:var(--green);font-size:13px;letter-spacing:1px}
+  .meal .dish{font-weight:700;font-size:15px;margin:4px 0}
+  .meal .why{font-size:13px;color:var(--ink-soft)}
+
+  .pill{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:700}
+  .pill.red{background:#fbe9e7;color:var(--red)} .pill.gold{background:#fdf3e0;color:#b0781f}
+  .pill.green{background:#eaf3ee;color:var(--green)} .pill.blue{background:#e8f0f8;color:#2f5d84}
+
+  .note{background:#fbf7ee;border-left:4px solid var(--gold);padding:13px 17px;border-radius:8px;margin:14px 0;font-size:13.5px;color:var(--ink-soft)}
+  .note.green{border-left-color:var(--green);background:#f0f7f2}
+  .note.red{border-left-color:var(--red);background:#faf1ef}
+  .note b{color:var(--ink)}
+
+  .formula{background:#f4f6f3;border:1px solid #dde4dc;border-radius:10px;padding:14px 18px;
+    margin:12px 0;font-family:"SF Mono",Consolas,monospace;font-size:13.5px;color:#2f6b4f;overflow-x:auto;white-space:nowrap}
+  .formula .cm{color:#9a9a90}
+
+  ul.tick{list-style:none;margin:10px 0}
+  ul.tick li{padding:4px 0 4px 24px;position:relative;color:var(--ink-soft);font-size:14px}
+  ul.tick li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}
+
+  .step-flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin:16px 0}
+  .step-flow .s{background:var(--green);color:#fff;padding:9px 14px;border-radius:10px;font-size:12.5px;font-weight:700;text-align:center}
+  .step-flow .s small{display:block;font-weight:400;font-size:10.5px;opacity:.85}
+  .step-flow .a{color:var(--gold);font-weight:800;font-size:18px}
+
+  .foot{text-align:center;color:#a09b90;font-size:12px;margin:30px 0 40px}
+  .warn{color:var(--red);font-weight:700}
+  .small{font-size:12.5px;color:var(--ink-soft)}
+</style>
+</head>
+<body data-page-node-id="AottU2A6T44AG72ObmwLeJ">
+
+<div class="hero" data-page-node-id="VB8hThu7uR6FiBGl0tuGSX">
+  <div class="wrap" data-page-node-id="5kFialaCtFs8cCif55tXy7">
+    <span class="tag" data-page-node-id="zWGW3cFKSCHakckZCvuZuQ">个性化 · 计算推导 · 千人千面</span>
+    <h1 data-page-node-id="vpHCsGgG9CkP86ZK7jnAR2">食光重构</h1>
+    <p data-page-node-id="2GJxlWzfAmqLVpULPAzPKJ">面向中年人群的个性化减肥食谱推荐系统。填写一份问卷，系统通过科学计算推导出属于你的专属食谱——并告诉你<strong data-page-node-id="puZwbngDjF8Vs8U6DIxRUD">为什么是这些</strong>。</p>
+  </div>
+</div>
+
+<div class="wrap" data-page-node-id="ddDvXg27fgt7cCw2Dodmwe">
+  <div class="tabs" data-page-node-id="rmIG8OVPgCAr4t7yEZrsEA">
+    <div class="tab active" data-p="quiz" data-page-node-id="rLcpQeCFO3z9z83hO7uDPv">① 填写问卷</div>
+    <div class="tab" data-p="result" data-page-node-id="7ZgvdbEFR0nftgwdrOxU8k">② 我的食谱</div>
+    <div class="tab" data-p="logic" data-page-node-id="VDH3WXGZ1QjbpigCEz9uSQ">③ 设计逻辑说明</div>
+  </div>
+
+  <!-- ============ 问卷面板 ============ -->
+  <div class="panel active" id="quiz" data-page-node-id="oiZYF5y05CGlzy5kwfGDUL">
+    <div class="card" data-page-node-id="zw4PyNynpXtuHrWl28gPWp">
+      <h2 data-page-node-id="fpLaqo4WGFzVWDvDj3GmH0"><span class="no" data-page-node-id="HQsZoEVUH5mH56p8pbYdf3">1</span>填写你的信息问卷</h2>
+      <p class="sub" data-page-node-id="Ssu5FVSQ5bB8Rk1qSalLHn">约 5 分钟完成。所有答案将用于计算你的专属食谱，不收集隐私。</p>
+
+      <div class="section-title" data-page-node-id="NsDFq2aBSVinN7N7IREsbF">基础信息</div>
+      <div class="field" data-page-node-id="spo57oKyTh5WUllkFONTqn">
+        <div class="q" data-page-node-id="BcuhtVJNRbORR5TvuKKWHD">性别</div>
+        <div class="opts" data-key="gender" data-page-node-id="fhxoupMa7SWb8phgAsT5Zy">
+          <div class="opt" data-v="male" data-page-node-id="PaDIIWP93yZOwZOH4paYXK">男</div><div class="opt" data-v="female" data-page-node-id="JACH4qzP4BOEhcpoV7L8Cn">女</div>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="ZHdbHSaA8IQoH6qqAOsFMf">
+        <div class="q" data-page-node-id="OcCq9KnhFTK1qIeploPS6B">年龄 <span class="hint" data-page-node-id="jJimSBeP0o3HcnKZsK59V9">用于计算基础代谢，中年人群代谢逐年下降</span></div>
+        <div class="row" data-page-node-id="uBpRfz6iLDoYm8avGtJts0">
+          <input type="number" id="age" placeholder="如 45" min="18" max="80" data-page-node-id="Sk1Gvyqd2OHs0kyBFCuJAS">
+          <span class="small" data-page-node-id="ebaeAOUQ0jJGDVlfnwbxGo">岁</span>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="A8xCF4y3y2hK5eCEobUeZz">
+        <div class="q" data-page-node-id="ai0ckK66SkTQ6SkVHGE5U8">身高 & 体重</div>
+        <div class="row" data-page-node-id="Lyu1sqI6eaeJm0UdT93AJo">
+          <input type="number" id="height" placeholder="身高 cm" data-page-node-id="DD1HjJDBAD8IRHRAndKxH1"><span class="small" data-page-node-id="1ukF2CWFaRV5kkvU9uqt8i">cm</span>
+          <input type="number" id="weight" placeholder="体重 kg" data-page-node-id="NsML8t3iXcGTuvLxit0sjs"><span class="small" data-page-node-id="WbPEdI6DlLDsr2yHp6k3QU">kg</span>
+        </div>
+      </div>
+
+      <div class="section-title" data-page-node-id="2B18iAmpRgOSEnEzFW1Iq4">健康与禁忌（安全红线）</div>
+      <div class="field" data-page-node-id="WjQxeN8FFvjWfUyEGPRyOo">
+        <div class="q" data-page-node-id="SHDvv9ScBGhq61q0qlozN7">是否有以下情况？<span class="hint" data-page-node-id="0npZWkOU9ePz8eQCXIhH69">多选，将触发安全约束，优先于一切</span></div>
+        <div class="opts" data-key="disease" data-multi="1" data-page-node-id="54iIuRDbRYzPNLFEBd4QcT">
+          <div class="opt" data-v="htn" data-page-node-id="uFIMHjPRMAeNDSVhVkt3Go">高血压</div>
+          <div class="opt" data-v="dm" data-page-node-id="878upc6lbLJRSGOxZt4BVc">糖尿病/糖前期</div>
+          <div class="opt" data-v="fatty" data-page-node-id="IkCxBxpTBCeB000KfQ6cf4">脂肪肝</div>
+          <div class="opt" data-v="gout" data-page-node-id="oAr94dbMlDDsaTo3PCFbkk">痛风/高尿酸</div>
+          <div class="opt" data-v="none" data-page-node-id="JCt6yVTHjI13PumsyM0oGX">均无</div>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="8Z9sUDa5JoMd02CKKCJv1f">
+        <div class="q" data-page-node-id="cw5jTm0fkpAI9zRVdaUwqp">过敏 / 完全不能吃的食物<span class="hint" data-page-node-id="6CYFEMnLKaBcG2RInQ1aY9">红线项，绝不出现</span></div>
+        <div class="opts" data-key="allergy" data-multi="1" data-page-node-id="VosgSBuvHijv2b5LSi1CRx">
+          <div class="opt" data-v="seafood" data-page-node-id="NznrFO7LNJnz7sK6md6RkU">海鲜</div>
+          <div class="opt" data-v="milk" data-page-node-id="bGibHKZHKW7l48TlZPGw9C">奶制品</div>
+          <div class="opt" data-v="soy" data-page-node-id="L1ags2TqFRCYSzq4So2Gf0">豆制品</div>
+          <div class="opt" data-v="none" data-page-node-id="O7SCt0AqgqHzBq9bmFvUlX">无</div>
+        </div>
+      </div>
+
+      <div class="section-title" data-page-node-id="tZYsOhzvcKTpjW8PDQb1wk">生活习惯</div>
+      <div class="field" data-page-node-id="7ymX1H0syUxQoOvDVZcyFF">
+        <div class="q" data-page-node-id="FnIFxmz81uWnCMWAKOdHrC">日常活动量</div>
+        <div class="opts" data-key="activity" data-page-node-id="uenoVdh8AMlGUeXIgjGHbT">
+          <div class="opt" data-v="1.2" data-page-node-id="f0Dl3M6CkojlMvsj6mXhB7">久坐为主</div>
+          <div class="opt" data-v="1.375" data-page-node-id="8Bsw5ndWYvIY6YpgvAfBlR">轻度活动</div>
+          <div class="opt" data-v="1.55" data-page-node-id="lDmzRTHBSknLZmT5NxCCJS">中等活动</div>
+          <div class="opt" data-v="1.725" data-page-node-id="P8r1B1LlLKxD15cXS3h2Xb">高强度</div>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="EDpc8mL4JtalRgpAcl79Jp">
+        <div class="q" data-page-node-id="QRS6hu1jZYNhA15ZKXV9wD">每周饮酒 / 应酬频率</div>
+        <div class="opts" data-key="social" data-page-node-id="Mpcnn7rueN9OQJjs0UktgP">
+          <div class="opt" data-v="0" data-page-node-id="9oDN0DTAFCHpVPOFjRIV8X">几乎没有</div>
+          <div class="opt" data-v="1" data-page-node-id="TJElLeRLczxhI6AaHT6k3W">每周1次</div>
+          <div class="opt" data-v="2" data-page-node-id="F34yp1bOhxkeKePoK8JxKZ">每周2-3次</div>
+          <div class="opt" data-v="3" data-page-node-id="FSVUmwS0Ii9uqcZ0GkrOCN">很频繁</div>
+        </div>
+      </div>
+
+      <div class="section-title" data-page-node-id="QTbnGC96k7VdBAaZ8tmMPQ">饮食现状与偏好</div>
+      <div class="field" data-page-node-id="7XD89z8ZauyWVaxGViJGx5">
+        <div class="q" data-page-node-id="CHFj0dsBCOIXLxtZJud6SM">平时主食以什么为主</div>
+        <div class="opts" data-key="staple" data-page-node-id="2kl0WBT3zFTzFnMM7jQkei">
+          <div class="opt" data-v="rice" data-page-node-id="eeNkYKzHcvcLbb61WrXFjU">白米白面为主</div>
+          <div class="opt" data-v="mix" data-page-node-id="UExWe9Y0K7gP2tnLqDhM59">粗细粮混合</div>
+          <div class="opt" data-v="coarse" data-page-node-id="tDKCI5CIFExKbh49D5QUiY">粗粮为主</div>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="aLQEpFYKFcSG9DQTh6y8JC">
+        <div class="q" data-page-node-id="Qtq5dYXVKSPO92peFfXDG9">一天中哪顿最容易"破功"</div>
+        <div class="opts" data-key="weakmeal" data-page-node-id="AG2zBHpDaCl8ivU71XkY26">
+          <div class="opt" data-v="dinner" data-page-node-id="yrE2W0lE6NGHfeOQqbnBaM">晚餐</div>
+          <div class="opt" data-v="lunch" data-page-node-id="02pphMnLVjn7y5b1DR1BHL">午餐</div>
+          <div class="opt" data-v="night" data-page-node-id="ZBwLXoT4ooL1eyCvIVSVMA">夜宵</div>
+          <div class="opt" data-v="none" data-page-node-id="hLKnwHcoybwhT3NqwThGsw">都能控制</div>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="nS0AvmhIy148X4zDAR98jc">
+        <div class="q" data-page-node-id="SChlIFkJGSt1uerhzV7uNC">做饭条件</div>
+        <div class="opts" data-key="cook" data-page-node-id="OMdjRWHleOgN0QDRUEHx3L">
+          <div class="opt" data-v="full" data-page-node-id="icZxd3AePep34qSPKOISKF">能开火做饭</div>
+          <div class="opt" data-v="micro" data-page-node-id="P9qUDQpD61Dp2HZrElMyvb">只有微波炉/简单工具</div>
+          <div class="opt" data-v="takeout" data-page-node-id="pTpmGlvoPAAo0eZbvwrayB">主要吃外卖/食堂</div>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="dyLrKxrtJn4mEzqAfIOCpz">
+        <div class="q" data-page-node-id="Yaxqt6NLBGsIia0OtJwhaH">不爱吃 / 想避开的食物<span class="hint" data-page-node-id="VX8DiaS62YA4TCagDACEjB">多选</span></div>
+        <div class="opts" data-key="dislike" data-multi="1" data-page-node-id="DQbExshD8kJLioiD36kGAa">
+          <div class="opt" data-v="fat" data-page-node-id="1KhDFKA3hs9abkc0Ts4Vr4">肥肉</div>
+          <div class="opt" data-v="veg" data-page-node-id="qnKrfvzhMDHesVYkntMzZO">绿叶蔬菜</div>
+          <div class="opt" data-v="fish" data-page-node-id="viOnwSP257ACB02F1sqouj">鱼</div>
+          <div class="opt" data-v="egg" data-page-node-id="FfkdVphmLzuzY9vk5ajHKw">鸡蛋</div>
+          <div class="opt" data-v="none" data-page-node-id="E0IqNdweJJF3e2To1W55IK">没有</div>
+        </div>
+      </div>
+
+      <div class="section-title" data-page-node-id="pDMAa2LhsvKbGTYyKyjoRC">目标与动机</div>
+      <div class="field" data-page-node-id="cc8mGPAa0AqYvSUYEt2mnU">
+        <div class="q" data-page-node-id="U9unTd5ztBfV1PqDcHzPNj">减重目标（未来3个月想减）</div>
+        <div class="row" data-page-node-id="Csn27r0lwnNBudJ7lV6vYl">
+          <input type="number" id="goal" placeholder="如 8" min="1" max="30" data-page-node-id="eshVpkEKeCva66EzHmKMMS"><span class="small" data-page-node-id="99xoRSHPiDrqOpNPhQstX7">kg</span>
+        </div>
+      </div>
+      <div class="field" data-page-node-id="x7iM4JoOL3fxCiyOuTSVmQ">
+        <div class="q" data-page-node-id="RqgRIyCKwpSrKGNk3SBHF3">减重的首要原因</div>
+        <div class="opts" data-key="motive" data-page-node-id="xyC2wJnzj8Uc86gOuSgz9E">
+          <div class="opt" data-v="health" data-page-node-id="RewAxArpJX5IqdHAoQoy4Q">为了健康</div>
+          <div class="opt" data-v="look" data-page-node-id="s8Yrb6KtFgfEeflARmPEk9">为了形象</div>
+          <div class="opt" data-v="index" data-page-node-id="mLGyU9zn6CVi0tNtpSEKv8">体检指标亮红灯</div>
+        </div>
+      </div>
+
+      <div class="cta" data-page-node-id="ThYeseWuvubezDOs9ScZJl">
+        <button class="btn" id="submitBtn" onclick="compute()" data-page-node-id="Ad7FLybBoyH5iDhE4XdmuZ">生成我的专属食谱 →</button>
+      </div>
+      <p class="small" style="text-align:center;margin-top:8px" id="fillHint" data-page-node-id="WBbRb6BXpYJcWHRpmmYTyo"></p>
+    </div>
+  </div>
+
+  <!-- ============ 结果面板 ============ -->
+  <div class="panel" id="result" data-page-node-id="b4gfh0cTFPtDyHcQqBx5Ws">
+    <div class="card" data-page-node-id="aXZpxSFSgQV43BUdCYccAv">
+      <h2 data-page-node-id="JQTHDuOXSaAnQWHK33VrMv"><span class="no" data-page-node-id="lCtFK84tQVm2rywV5Sjf4e">2</span>你的专属食谱</h2>
+      <p class="sub" id="resultEmpty" data-page-node-id="fIy884u1VfOS2jAQLQPhKH">请先在「填写问卷」完成信息，再点击生成。</p>
+      <div id="resultBody" data-page-node-id="dTDRH4ptuggV9SXMxP6rbg"></div>
+    </div>
+  </div>
+
+  <!-- ============ 逻辑说明面板 ============ -->
+  <div class="panel" id="logic" data-page-node-id="KAVJQsjx9hRWIkvVDEIuvl">
+    <div class="card" data-page-node-id="2X4J82uU5VyRQ9SqFdw2CW">
+      <h2 data-page-node-id="kvt1vIDmFRXF1FBFNFYqp0"><span class="no" data-page-node-id="MdbwRA8HtBiojod9BC59tt">3</span>问卷设计逻辑</h2>
+      <p class="lead" data-page-node-id="urrl8mHpDkxodCQAu2bnU4">问卷不是随意的信息收集表，而是<strong data-page-node-id="DEQRFgLCkdm9W4yk3OQHu0">为计算引擎量身定制的"数据采集契约"</strong>。每一道题都能在下游公式里找到用途，用不到的题一律不设。</p>
+      <h3 data-page-node-id="MxyNc062WvcxG28lFswDdT">三要三不要</h3>
+      <ul class="tick" data-page-node-id="9wkHqCvN6ZeXNO0J2b49T0">
+        <li data-page-node-id="qWHWAmBDCeY3gRmYGX8esA"><b data-page-node-id="MinwvhOdhtSZjBpWz6Qw4I">要可计算</b>：答案必须能转成数值或可枚举类别</li>
+        <li data-page-node-id="Sy31suBXp4gkAg3baD31A2"><b data-page-node-id="MzMRZua8d1nASpCZhQcl8A">要低负担</b>：5 分钟内完成，多用选择少用填空</li>
+        <li data-page-node-id="YBQ7MzFZ0GApoB3l7QFcFH"><b data-page-node-id="rHvA5FbD5arPcKFD3rxGHH">要可校验</b>：设交叉验证，识别前后矛盾的回答</li>
+        <li data-page-node-id="nOiNbI1DSu1Fg3PBkIBYtd"><b data-page-node-id="pUGKMSxnbbslmT6rpSLmBN">不要专业术语</b>：问"有高血压吗"而非"血压分级"</li>
+        <li data-page-node-id="Thv3oYysEAw567k3cC1pdC"><b data-page-node-id="jZAhkXvcNztsaMtEWWKFD7">不要过度精确</b>：用频率代替克数，用户填得出</li>
+        <li data-page-node-id="E7NcjMXnoHO3voS2XiXXaD"><b data-page-node-id="JTpGB27oIHisFmJ9MESipy">不要评判感</b>：措辞中性，避免被指责</li>
+      </ul>
+      <table data-page-node-id="NmhAH81QTtxY80VxOEDQe6">
+        <tr data-page-node-id="8noFskejAtuhFojN8sHGhh"><th data-page-node-id="V594lxP2h5PwtyLVzLCWY2">模块</th><th data-page-node-id="u74PIEEjVXapD1Ihr7UXIG">采集维度</th><th data-page-node-id="uLfWNNnPFHVPuUpfkAEB5N">下游用途</th></tr>
+        <tr data-page-node-id="zHYltnv0iI9juagHvVtd0B"><td data-page-node-id="kGmPqkyqD1yhNQGKxB7pQm"><b data-page-node-id="ViSZH5UHJG0aauWlmat7w5">基础信息</b></td><td data-page-node-id="3vNVPhHXFWSW7won4mXhbU">性别/年龄/身高/体重</td><td data-page-node-id="y5HAfX5frjB4U9nlwNRYrR">计算 BMR 与 TDEE</td></tr>
+        <tr data-page-node-id="J9zF2BrXPdCOGKeYzDKJFk"><td data-page-node-id="0L93ZEp0kSaRryHj0YOiIo"><b data-page-node-id="mNEDgVxGNV9yBdDTjtZtAA">健康禁忌</b></td><td data-page-node-id="HRzSvyICSkjnXCteVkdfS4">慢病史/过敏原</td><td data-page-node-id="NU0tytwDD0VqZ8uKmUZQBo">触发安全硬约束，最高优先级</td></tr>
+        <tr data-page-node-id="eNecDTCLs3gyyR4X5V4Sl1"><td data-page-node-id="VaU9EqPJ2YgRdFY9Qx1kcs"><b data-page-node-id="qnhrxENlLA1yjOKn0L9Jyy">生活习惯</b></td><td data-page-node-id="9cL4s7YJBXOwEYIi20ZioG">活动量/应酬</td><td data-page-node-id="6hHofXKwdOSYrpfDUVFzSq">修正活动系数，识别应酬型用户</td></tr>
+        <tr data-page-node-id="v4WsBeDbGmp2P1pNtP7dGJ"><td data-page-node-id="R3kkILoX5kzbeYgEqBT7oH"><b data-page-node-id="vhBdvCLnNU0xc0luYQ95EE">饮食偏好</b></td><td data-page-node-id="Cyq08aNW9Bqb6fj7XHKiUJ">主食/高危餐次/做饭条件/忌口</td><td data-page-node-id="22cfqkYsuzOBtaQ05TYevL">决定食谱的可接受度与可执行度</td></tr>
+        <tr data-page-node-id="CNn1ycr1Ta64ZU0dYjXHag"><td data-page-node-id="jJdI4FkpV0ZqBhXuuVHBwA"><b data-page-node-id="ODXpp1XHmBRZ59EtsEDLcM">目标动机</b></td><td data-page-node-id="OZ0rWUjGxssSsz8JxZDfAn">减重量/期限/动机</td><td data-page-node-id="rC7uDruJdpWNWHisxMWFyh">设定减重速率上限，差异化激励</td></tr>
+      </table>
+    </div>
+
+    <div class="card" data-page-node-id="XTyeLQ1RKleD7OlCumZBef">
+      <h2 data-page-node-id="z94jPBPyBxHiCune0TDh2F"><span class="no" data-page-node-id="k5ywUnldva1nIGBL0sMo4f">4</span>计算推导逻辑</h2>
+      <p class="lead" data-page-node-id="pvpcaiBzAiuV5pg7SuFTpH">从答案到食谱，是一条五步算法链路，每一步都有数学依据，且<strong data-page-node-id="hEVL84I79UPv318qVZV4f1">可解释</strong>——用户能看到"为什么是这些"。</p>
+      <div class="step-flow" data-page-node-id="5SBrMSTn1ewDHyBQy6sTw0">
+        <div class="s" data-page-node-id="EgCrDCrMM6qOzZLYyThJBv">① 能量基线<small data-page-node-id="nkP1ErlyUoJeL3kvyE7wpt">BMR → TDEE</small></div><div class="a" data-page-node-id="FGbBEhRKegPlYlUwbPYC7s">→</div>
+        <div class="s" data-page-node-id="OGSkPf8LFTx6fiFLm2jnUO">② 能量缺口<small data-page-node-id="BpbMJpCcHS3zn6LBYNka9N">安全区间约束</small></div><div class="a" data-page-node-id="PlWyHImEkPg0UGuUgueTOH">→</div>
+        <div class="s" data-page-node-id="QDAkbfd0sRZQ7jbEyLqNGb">③ 三大营养素<small data-page-node-id="JWNS4vLM9gwPVReE62dFs5">蛋白/脂肪/碳水</small></div><div class="a" data-page-node-id="fSGuKb7wq4yHxv5XtwFwhw">→</div>
+        <div class="s" data-page-node-id="wtASJaU9mxDOC32sryfmU3">④ 约束过滤<small data-page-node-id="5HBF1WSiZVWRUobkgO7ZD8">硬/软/偏好</small></div><div class="a" data-page-node-id="FVH5hQVOXDYnrLBX9wsVk1">→</div>
+        <div class="s" data-page-node-id="Gwj6GP42aUlqyIuhInCzcy">⑤ 食谱装配<small data-page-node-id="inGeZdxAkYBcVGpmCnqVmk">组合优化</small></div>
+      </div>
+
+      <h3 data-page-node-id="mokkqDDKAu3umEtgPNobjZ">步骤一：能量基线</h3>
+      <div class="formula" data-page-node-id="cNEAscfvA6S5u2TL4Lk1LI">男：BMR = 10×体重 + 6.25×身高 − 5×年龄 + 5<br data-page-node-id="c6zAjWzuLzfH3yHaxSekxO">女：BMR = 10×体重 + 6.25×身高 − 5×年龄 − 161</div>
+      <div class="formula" data-page-node-id="yYJzDF5btCAhItzVfVHK6B">TDEE = BMR × 活动系数 <span class="cm" data-page-node-id="5tmAOCNY0osmkCJDo0khd4">(久坐1.2 / 轻度1.375 / 中度1.55 / 高度1.725)</span></div>
+      <p class="small" data-page-node-id="1zBCdhsYNkjdfkjqB8k1zh">采用 Mifflin-St Jeor 公式，被美国营养与饮食学会等主流机构推荐。</p>
+
+      <h3 data-page-node-id="Rq76cTLrObGBe7PEuS0iOb">步骤二：能量缺口（不是越大越好）</h3>
+      <div class="formula" data-page-node-id="Eb8IvFwFUb2PyYdHAUDB4J">每日目标摄入 = TDEE − 缺口　<span class="cm" data-page-node-id="XBDNCs8UcGZGGK4ke3qzPR">缺口上限 500~750 kcal</span></div>
+      <ul class="tick" data-page-node-id="KIVFiy0dFTdAtCI0DfDhId">
+        <li data-page-node-id="0nNRw7P1bzCvwGcMPG6WWz"><b data-page-node-id="GhHrlRXPQhlN9VMvHREVuC">下限保护</b>：男 ≥1500 kcal、女 ≥1200 kcal，避免饿出代谢损伤</li>
+        <li data-page-node-id="tFzIqnPVV7QKijfJz6yVeJ"><b data-page-node-id="kBXxxIZD7WdKqflrOHKFJb">目标纠偏</b>：目标过激进时自动回落到安全速率并解释原因</li>
+        <li data-page-node-id="k01uSvOwVpws4azfRDtCb2"><b data-page-node-id="9VEp3v5Xk8nXw5JmCmsZNe">慢病人群</b>：缺口进一步收窄，优先营养密度</li>
+      </ul>
+
+      <h3 data-page-node-id="s29hyPpcGe1xOGxLmpCXKh">步骤三：三大营养素分配</h3>
+      <table data-page-node-id="LVxPq1YET32CHf6Kk7sSAa">
+        <tr data-page-node-id="zZfSB6591wwALQ8nDFHUQt"><th data-page-node-id="uvELQYZge7sMAF59VKnTet">营养素</th><th data-page-node-id="8XOajbrbXgwbzEe6iyn6wg">占比</th><th data-page-node-id="BCF8kz0EvySU3sXRj1zbLw">热量</th><th data-page-node-id="2c7DNxOXHc50YpWjOWEVUC">中年减重考量</th></tr>
+        <tr data-page-node-id="y7yqWnqNcL0e4uXOD3vynI"><td data-page-node-id="yQfKDbGpTtebtoayH1Yp6b"><b data-page-node-id="4UFDpEGV5wcUl22GhWiFo7">蛋白质</b></td><td data-page-node-id="r287KtCqaBEKTs3ykwW4F0">25-35%</td><td data-page-node-id="1RJHLo34GPq4EApchmBfBp">4 kcal/g</td><td data-page-node-id="EjESrdlsiT2fvQOixzaRKt">保护肌肉、增强饱腹、热效应高</td></tr>
+        <tr data-page-node-id="K3Mara9KCg8uEGY91aF50J"><td data-page-node-id="mECkGPYH5dCpXyl45fKXp8"><b data-page-node-id="LxgcOLVaTvs4NgPX7JnC3B">脂肪</b></td><td data-page-node-id="ukyJGrNg0s1IzElbpB6D3L">20-30%</td><td data-page-node-id="tSsafPoycWEZ64CavbUa85">9 kcal/g</td><td data-page-node-id="qSLjwwYVVplfC3oGgPLooM">必需脂肪酸，中年代谢慢不宜高</td></tr>
+        <tr data-page-node-id="kh4VXM9xgr6H1ZAmutLvIp"><td data-page-node-id="VsBeXGeBCZdWMFwJkU16nu"><b data-page-node-id="gEnaLpgGDpHIjllpXDgCYg">碳水</b></td><td data-page-node-id="rBh9ZvyL4Z5ZvxyEzzjNVm">35-50%</td><td data-page-node-id="gEUqvNwGIJuCT2AXmnkeMb">4 kcal/g</td><td data-page-node-id="CMa8TIcFD9FoANivwj78EU">优先低GI、高纤维复合碳水</td></tr>
+      </table>
+
+      <h3 data-page-node-id="eDhKXHYRM3CAhT52FzXOCt">步骤四：三层约束过滤</h3>
+      <table data-page-node-id="ZHJqITxIucqOAfKCXDmxL9">
+        <tr data-page-node-id="0bCWWmN5NX2LYKbC2kbGJ6"><th data-page-node-id="wVvERwHq6F9TRHEeEfSXiL">层级</th><th data-page-node-id="q8lA7GC6mMLbCoD4HBljnv">类型</th><th data-page-node-id="NP1YkT8rf63C5ikmSSUUr8">示例</th><th data-page-node-id="4LEvQP3vYzvSFNXnkycvgR">处理</th></tr>
+        <tr data-page-node-id="XpCL0GgWnhyAYqXw4eKsWz"><td data-page-node-id="a5CJMWs2maWyEXtXCrIB08"><b data-page-node-id="J16R2U71F7stD4eupy3Ifi">L1</b></td><td data-page-node-id="7wEXHMY01W8VYu4AwdhLVW">硬约束(安全红线)</td><td data-page-node-id="Sj2Ud8OfJ8ptGdDk59N4YJ">糖尿病→排高GI；痛风→排高嘌呤；过敏→排过敏原</td><td data-page-node-id="PssHMC7Gvq6fi4gjpFEhfN">直接剔除</td></tr>
+        <tr data-page-node-id="b2dxHCqwOFfHVFVU2CXSyi"><td data-page-node-id="B7KmNhZQc0tS2TDdO375IO"><b data-page-node-id="tupgWGaCDD0anGjdrzedd6">L2</b></td><td data-page-node-id="DMaHacZQ7watx6CPfME2jI">软约束(健康建议)</td><td data-page-node-id="fCLhXvucB96iVLcmHC3Qys">高血压→控钠；脂肪肝→控酒精果糖</td><td data-page-node-id="M9Q3DD2gdCaJlhy4hjOS7D">尽量满足</td></tr>
+        <tr data-page-node-id="HXGdvoluRNd34Kzh57uTeE"><td data-page-node-id="hZis6yeQw93ocKBJpjjyvG"><b data-page-node-id="APB19JgiOwAXXSSsDrl3ti">L3</b></td><td data-page-node-id="c59Yr6sTTsKAZAqkxybkqN">偏好加权</td><td data-page-node-id="0ofJt1LEzhlwbh6xi46avP">不爱吃→权重0；爱吃→提高匹配</td><td data-page-node-id="v2LxB2Yc1gxfWzt81NZQ92">影响排序</td></tr>
+      </table>
+
+      <h3 data-page-node-id="Lo1RdJJGVH0RU4pyflahg0">步骤五：食谱装配（组合优化）</h3>
+      <div class="formula" data-page-node-id="ZkbPCfNFWcxaYo8TCuhwnD">min |实际热量−目标| + λ₁|蛋白偏差| + λ₂|碳水偏差| + λ₃|脂肪偏差|</div>
+      <p class="small" data-page-node-id="AYtEANuAZUoeHxMPMlB0MV">在"热量接近、营养达标、用户爱吃、能做得了"之间寻找最优平衡，并内置一键换菜替代规则。</p>
+    </div>
+
+    <div class="card" data-page-node-id="DuWqyABReIjpOXpzwzxFNu">
+      <h2 data-page-node-id="4NVEgo5dHfEVf4GwKQrGRC"><span class="no" data-page-node-id="dQkLSSIatzgjICHWPaXXW1">5</span>参考标准与效果体验</h2>
+      <h3 data-page-node-id="QA9nrLcgk3tySdeZVNecUb">参考标准</h3>
+      <table data-page-node-id="OilSQAnhtVBM3PaX4jPtlF">
+        <tr data-page-node-id="Ly8YtpacmcI1kOXGVsyX66"><th data-page-node-id="rJsZ2RQg9ightGb4luDhnC">标准</th><th data-page-node-id="ZHTR3AXJ02mSC9BPG4dI3w">用途</th></tr>
+        <tr data-page-node-id="d3tXlkMGIni4RECXDV4Z7J"><td data-page-node-id="K8ANHTvYVyEUB2Cac9JE6F">《中国居民膳食指南(2022)》</td><td data-page-node-id="JfEF5yBVHcTYL3rVgyn7Jh">宏量营养比例、食物多样性、限盐限油</td></tr>
+        <tr data-page-node-id="4WzEemMKTrWAGdqifleWt8"><td data-page-node-id="MV85EHi2teeHgchPhVI9qP">DRIs 2023</td><td data-page-node-id="tXsokUsGOveTfvZolmtbUg">营养素个体化推荐量</td></tr>
+        <tr data-page-node-id="ulbG9EhkAtJIASEXyoSMpM"><td data-page-node-id="a3FhYquPdGQzykecSTurFb">Mifflin-St Jeor</td><td data-page-node-id="oorkEI1bTYLiwwozXLHD7h">基础代谢估算</td></tr>
+        <tr data-page-node-id="37pQ9BP7bNMGFcM7EG7yVA"><td data-page-node-id="9s49PkJ8OyFCYdTD8RNbC0">WHO/ACSM 减重共识</td><td data-page-node-id="p6OtY8TRcaxtzKBpVfkmiC">每周 0.5-1kg 安全速率</td></tr>
+        <tr data-page-node-id="cEffQ4yEqayzRx3fykktkz"><td data-page-node-id="SXunnrRXiE9cNjpecyfIfA">ADA 糖尿病营养指南</td><td data-page-node-id="fXEZJb6L5iOubVGKgneHye">碳水计数、低GI选择</td></tr>
+        <tr data-page-node-id="Wr0bdJGCSDtmRagurtM5FE"><td data-page-node-id="dI1Q3ab1r8gn8roccon3Fa">《中国食物成分表》</td><td data-page-node-id="jjbK33GxyGDw6Uu49M99Po">菜谱营养数据来源</td></tr>
+      </table>
+      <h3 data-page-node-id="oF9RuZeT7DRrGCcjo9NZea">如何带来更好效果与体验</h3>
+      <ul class="tick" data-page-node-id="gey6Y774spy4JA1576Srfu">
+        <li data-page-node-id="bmDrfZoNtFlaFRhlF78hwB"><b data-page-node-id="gXdpXlfOw5afj8klaJG1KZ">保肌减脂</b>：偏高蛋白，减脂肪不减肌肉</li>
+        <li data-page-node-id="4MNGBzub1CDAAa89yCZVFl"><b data-page-node-id="WbBYgY7A4X79JgwqHX2pAY">慢病友好</b>：硬约束兜底，减肥不伤身</li>
+        <li data-page-node-id="SJqvu1UEzhxTPFd9LzPnf1"><b data-page-node-id="hPnLX7DpnJb6hBtuCy2H4U">渐进改变</b>：粗粮替换、减盐"温水煮青蛙"</li>
+        <li data-page-node-id="wAtaHHrUHygUd7vGAsJI5v"><b data-page-node-id="pm2H0IufKjV07ws505tGLc">防反弹</b>：识别高危餐次，针对性控损</li>
+        <li data-page-node-id="QbpQ4OfMcRpyoeB54LesF1"><b data-page-node-id="3dbUAY43Z1AI7lEy5LibB4">匹配现实</b>：按做饭条件给能落地的菜</li>
+        <li data-page-node-id="x3JkKgIm3bxTTtMGOi9p1T"><b data-page-node-id="JXqANFwGNsauVHF6HdCfEC">可解释</b>：每份食谱附"为什么这样配"</li>
+      </ul>
+      <div class="note red" data-page-node-id="oJFDLW6Xt6MN8bbgsGbAvl"><b data-page-node-id="O6cHX3vbrpNMEjGblq9ns4">合规底线：</b>本系统是饮食指导工具，非医疗诊断。对确诊慢病、孕期、术后人群建议遵医嘱，并做风险分层与人工转介。</div>
+    </div>
+  </div>
+
+  <div class="foot" data-page-node-id="sBkvwOq8sWWbtwA0HraVMZ">食光重构 · 中年个性化减肥食谱推荐系统 · 仅供健康饮食参考，不构成医疗建议</div>
+</div>
+
+<script>
+// ============ 问卷交互 ============
+var answers = {};
+
+document.querySelectorAll('.opts').forEach(function(g){
+  var multi = g.getAttribute('data-multi')==='1';
+  g.addEventListener('click', function(e){
+    var o = e.target.closest('.opt');
+    if(!o) return;
+    var key = g.getAttribute('data-key');
+    var v = o.getAttribute('data-v');
+    if(multi){
+      // 处理"无"选项的互斥
+      if(v==='none'){ g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); o.classList.add('sel'); answers[key]=['none']; return; }
+      var none = g.querySelector('.opt[data-v="none"]');
+      if(none) none.classList.remove('sel');
+      o.classList.toggle('sel');
+      var arr = Array.from(g.querySelectorAll('.opt.sel')).map(x=>x.getAttribute('data-v'));
+      answers[key] = arr;
+    }else{
+      g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));
+      o.classList.add('sel');
+      answers[key] = v;
+    }
+  });
+});
+
+// ============ 计算引擎 ============
+function val(id){ var el=document.getElementById(id); return el?parseFloat(el.value):NaN; }
+
+function compute(){
+  // 采集输入
+  var gender = answers['gender'];
+  var age = val('age'), height = val('height'), weight = val('weight'), goal = val('goal');
+  if(!gender || isNaN(age)||isNaN(height)||isNaN(weight)||isNaN(goal)){
+    document.getElementById('fillHint').innerHTML = '<span class="warn">请完整填写：性别、年龄、身高、体重、减重目标（其余可选）</span>';
+    return;
+  }
+  document.getElementById('fillHint').innerHTML='';
+
+  var disease = answers['disease']||[];
+  var allergy = answers['allergy']||[];
+  var activity = parseFloat(answers['activity']||'1.2');
+  var social = parseInt(answers['social']||'0');
+  var staple = answers['staple']||'rice';
+  var weakmeal = answers['weakmeal']||'none';
+  var cook = answers['cook']||'full';
+  var dislike = answers['dislike']||[];
+  var motive = answers['motive']||'health';
+
+  // ① BMR (Mifflin-St Jeor)
+  var bmr = 10*weight + 6.25*height - 5*age + (gender==='male'?5:-161);
+  var tdee = bmr * activity;
+
+  // ② 能量缺口
+  var weeklyGoalKg = goal/12; // 3个月≈12周
+  var deficit = weeklyGoalKg * 7700 / 7; // 每kg脂肪约7700kcal
+  if(deficit > 750) deficit = 750;
+  if(deficit < 200) deficit = 200;
+  var intake = tdee - deficit;
+  var floor = gender==='male'?1500:1200;
+  var truncated = false;
+  if(intake < floor){ intake = floor; truncated = true; }
+  intake = Math.round(intake);
+
+  // ③ 三大营养素
+  var protein = Math.round(intake*0.30/4);
+  var fat = Math.round(intake*0.25/9);
+  var carb = Math.round(intake*0.45/4);
+
+  // ④ 约束
+  var constraints = [];
+  if(disease.indexOf('htn')>-1) constraints.push({t:'高血压',r:'控钠≤2000mg/天，少腌制品，用香料补味',c:'red'});
+  if(disease.indexOf('dm')>-1) constraints.push({t:'糖尿病/糖前期',r:'控制精制碳水，优先低GI主食，限制含糖饮料',c:'red'});
+  if(disease.indexOf('fatty')>-1) constraints.push({t:'脂肪肝',r:'控制酒精与高果糖甜饮料，限制高油',c:'red'});
+  if(disease.indexOf('gout')>-1) constraints.push({t:'痛风/高尿酸',r:'限制高嘌呤（内脏、浓肉汤、部分海鲜），多饮水',c:'red'});
+  if(social>=2) constraints.push({t:'高应酬',r:'启用应酬日控损策略（餐前垫、选蒸煮少油）',c:'gold'});
+  if(staple==='rice') constraints.push({t:'白米白面为主',r:'渐进替代：混合杂粮，而非一刀切换粗粮',c:'blue'});
+
+  // ⑤ 装配（简化规则引擎）
+  var meals = buildMeals({disease,allergy,cook,dislike,weakmeal,protein,carb,fat,intake,staple});
+
+  // 渲染
+  renderResult({gender,age,height,weight,goal,bmr,tdee,deficit,intake,truncated,floor,
+    protein,fat,carb,constraints,meals,weakmeal,social,motive,cook,staple});
+  switchTab('result');
+}
+
+// 菜谱库（简化）
+function buildMeals(o){
+  var protein = o.protein, carb = o.carb, fat = o.fat;
+  var hasAllergy = function(k){ return o.allergy.indexOf(k)>-1; };
+  var hasDisease = function(k){ return o.disease.indexOf(k)>-1; };
+  var dislike = o.dislike;
+
+  // 蛋白质来源筛选
+  var proSources = [];
+  if(!hasAllergy('seafood') && !hasDisease('gout') && dislike.indexOf('fish')<0 && dislike.indexOf('fat')<0){
+    proSources.push({n:'白灼虾/清蒸鱼', why:'低脂高蛋白，控脂友好'});
+  }
+  if(!hasAllergy('milk') && dislike.indexOf('milk')<0){ proSources.push({n:'无糖酸奶/低脂牛奶', why:'优质乳蛋白，饱腹感强'}); }
+  if(!hasAllergy('soy') && dislike.indexOf('egg')<0 && !hasDisease('gout')){ proSources.push({n:'鸡蛋/豆腐', why:'平价优质蛋白，易获取'}); }
+  proSources.push({n:'鸡胸肉/瘦牛肉', why:'高蛋白，保肌减脂核心'});
+  proSources.push({n:'去皮禽肉', why:'低脂蛋白，控脂'});
+
+  // 主食来源
+  var staple = o.staple;
+  var carbName = staple==='rice' ? '混合杂粮饭（白米+糙米/燕麦）' : (staple==='mix'?'杂粮饭':'粗粮/薯类');
+  var carbWhy = staple==='rice' ? '渐进替代，降低GI又易坚持' : '低GI复合碳水，稳定血糖';
+
+  // 蔬菜
+  var vegName = dislike.indexOf('veg')>-1 ? '菌菇/瓜类（冬瓜、西葫芦）' : '清炒绿叶菜';
+  var vegWhy = dislike.indexOf('veg')>-1 ? '避开绿叶菜，选你更能接受的蔬菜' : '高纤维低热量，增加饱腹';
+
+  var meals = [];
+  // 早餐
+  var bf = [];
+  if(!hasAllergy('soy')){ bf.push('无糖豆浆'); }
+  if(!hasAllergy('milk')){ bf.push('水煮蛋'); }
+  else if(!hasAllergy('soy')){ bf.push('豆腐脑(少卤)'); }
+  bf.push(carbName.split('（')[0]);
+  meals.push({tag:'早餐', dish: bf.join(' + '), why:'蛋白质启动代谢，低GI主食稳血糖', k:Math.round(intakeBf(o.intake))});
+
+  // 午餐
+  var lunchPro = proSources[proSources.length-1].n; // 选禽肉/鸡胸
+  var lunch = [lunchPro, carbName, vegName];
+  meals.push({tag:'午餐', dish: lunch.join(' + '), why:'高蛋白保肌，'+carbWhy, k:Math.round(intake*0.40)});
+
+  // 晚餐
+  var dinPro = (hasAllergy('seafood')||hasDisease('gout')) ? proSources[proSources.length-1].n : proSources[0].n;
+  var din = [dinPro, vegName];
+  if(o.weakmeal==='dinner'){ din.push('半份'+carbName); }
+  meals.push({tag:'晚餐', dish: din.join(' + '), why:'低脂高蛋白，晚餐控碳水防夜间囤脂' + (o.weakmeal==='dinner'?'（你晚餐易破功，保留半份主食增加饱腹）':''), k:Math.round(intake*0.30)});
+
+  // 应酬/夜宵
+  if(o.social>=2){
+    meals.push({tag:'应酬日策略', dish:'餐前垫一杯牛奶+一根黄瓜；点菜选蒸煮少油；酒选干红限量', why:'控损而非禁止应酬', k:0});
+  }
+  if(o.weakmeal==='night'){
+    meals.push({tag:'夜宵替代', dish:'无糖酸奶 + 一小把坚果（约15g）', why:'满足嘴馋又不爆卡', k:Math.round(150)});
+  }
+  return meals;
+}
+function intakeBf(intake){ return Math.round(intake*0.28); }
+
+function renderResult(d){
+  var el = document.getElementById('resultBody');
+  document.getElementById('resultEmpty').style.display='none';
+
+  var constraintHtml = d.constraints.length ? d.constraints.map(function(c){
+    return '<span class="pill '+c.c+'">'+c.t+'：'+c.r+'</span> ';
+  }).join('<br>') : '<span class="pill green">无特殊安全约束</span>';
+
+  var proteinPct = Math.round(d.protein*4/d.intake*100);
+  var fatPct = Math.round(d.fat*9/d.intake*100);
+  var carbPct = Math.round(d.carb*4/d.intake*100);
+
+  var html = '';
+  // 能量结果
+  html += '<div class="result-hero"><div class="big">'+d.intake+' <span>kcal / 天</span></div>'+
+    '<div class="small">你的每日目标摄入量（计算自 BMR '+Math.round(d.bmr)+' → TDEE '+Math.round(d.tdee)+' → 缺口 '+Math.round(d.deficit)+' kcal）</div></div>';
+
+  html += '<div class="metric-grid">'+
+    '<div class="metric"><div class="v">'+Math.round(d.bmr)+'<small> kcal</small></div><div class="l">基础代谢 BMR</div></div>'+
+    '<div class="metric"><div class="v">'+Math.round(d.tdee)+'<small> kcal</small></div><div class="l">总消耗 TDEE</div></div>'+
+    '<div class="metric"><div class="v">'+Math.round(d.deficit)+'<small> kcal</small></div><div class="l">能量缺口</div></div>'+
+    '<div class="metric"><div class="v">'+Math.round(d.goal/12*7*100)/100+'<small> kg/周</small></div><div class="l">安全减重速率</div></div>'+
+    '</div>';
+
+  if(d.truncated){
+    html += '<div class="note red"><b>目标已自动纠偏：</b>按你的减重目标计算的摄入量低于安全下限（'+d.floor+' kcal），系统已为你回落到安全值，避免代谢损伤。减重宜慢不宜快。</div>';
+  }
+
+  // 营养素
+  html += '<h3>三大营养素分配</h3><table><tr><th>营养素</th><th>每日目标</th><th>供能占比</th><th>分配</th></tr>'+
+    '<tr><td><b>蛋白质</b></td><td>'+d.protein+' g</td><td>'+proteinPct+'%</td><td><div class="bar-wrap"><div class="bar" style="width:'+proteinPct+'%;background:#3a8a63"></div></div></td></tr>'+
+    '<tr><td><b>脂肪</b></td><td>'+d.fat+' g</td><td>'+fatPct+'%</td><td><div class="bar-wrap"><div class="bar" style="width:'+fatPct+'%;background:#c98a3d"></div></div></td></tr>'+
+    '<tr><td><b>碳水</b></td><td>'+d.carb+' g</td><td>'+carbPct+'%</td><td><div class="bar-wrap"><div class="bar" style="width:'+carbPct+'%;background:#5b8fc4"></div></div></td></tr>'+
+    '</table>';
+
+  // 约束
+  html += '<h3>已启用的约束</h3>'+constraintHtml;
+
+  // 食谱
+  html += '<h3>你的个性化食谱（示例一日）</h3>';
+  d.meals.forEach(function(m){
+    html += '<div class="meal"><div class="tag">'+m.tag+'</div><div class="dish">'+m.dish+'</div><div class="why">'+m.why+'</div></div>';
+  });
+
+  // 可解释性总结
+  html += '<div class="note green"><b>为什么是这套食谱？</b>我们根据你的'+ (d.constraints.length? d.constraints.map(c=>c.t).join('、') : '基础情况') +'，为你：① 设定安全能量缺口；② 给到 '+d.protein+'g 蛋白质以保护肌肉；③ 避开了你标注的忌口与慢病禁忌。这是一条"你吃得下、也减得下来"的路。</div>';
+
+  el.innerHTML = html;
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// tab 切换
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('active', t.getAttribute('data-p')===id); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('active', p.id===id); });
+}
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click', function(){ switchTab(t.getAttribute('data-p')); });
+});
+</script>
+</body>
+</html>
