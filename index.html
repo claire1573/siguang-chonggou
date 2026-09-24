@@ -415,6 +415,7 @@ document.querySelectorAll('.opts').forEach(function(g){
 function val(id){ var el=document.getElementById(id); return el?parseFloat(el.value):NaN; }
 
 function compute(){
+  try{
   // 采集输入
   var gender = answers['gender'];
   var age = val('age'), height = val('height'), weight = val('weight'), goal = val('goal');
@@ -470,6 +471,9 @@ function compute(){
   renderResult({gender,age,height,weight,goal,bmr,tdee,deficit,intake,truncated,floor,
     protein,fat,carb,constraints,meals,weakmeal,social,motive,cook,staple});
   switchTab('result');
+  }catch(err){
+    document.getElementById('fillHint').innerHTML = '<span class="warn">计算出错了，请刷新页面重试。错误信息：'+err.message+'</span>';
+  }
 }
 
 // 菜谱库（简化）
@@ -510,13 +514,13 @@ function buildMeals(o){
   // 午餐
   var lunchPro = proSources[proSources.length-1].n; // 选禽肉/鸡胸
   var lunch = [lunchPro, carbName, vegName];
-  meals.push({tag:'午餐', dish: lunch.join(' + '), why:'高蛋白保肌，'+carbWhy, k:Math.round(intake*0.40)});
+  meals.push({tag:'午餐', dish: lunch.join(' + '), why:'高蛋白保肌，'+carbWhy, k:Math.round(o.intake*0.40)});
 
   // 晚餐
   var dinPro = (hasAllergy('seafood')||hasDisease('gout')) ? proSources[proSources.length-1].n : proSources[0].n;
   var din = [dinPro, vegName];
   if(o.weakmeal==='dinner'){ din.push('半份'+carbName); }
-  meals.push({tag:'晚餐', dish: din.join(' + '), why:'低脂高蛋白，晚餐控碳水防夜间囤脂' + (o.weakmeal==='dinner'?'（你晚餐易破功，保留半份主食增加饱腹）':''), k:Math.round(intake*0.30)});
+  meals.push({tag:'晚餐', dish: din.join(' + '), why:'低脂高蛋白，晚餐控碳水防夜间囤脂' + (o.weakmeal==='dinner'?'（你晚餐易破功，保留半份主食增加饱腹）':''), k:Math.round(o.intake*0.30)});
 
   // 应酬/夜宵
   if(o.social>=2){
